@@ -1,0 +1,68 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+<div class="row">
+	<div class="col-lg-12">
+		<div id="comp-render" >
+
+		
+				 <router-outlet></router-outlet>
+				 
+		 </div>
+		<div class="main-box clearfix">
+			<div class="table-responsive">
+				<div class="container">
+					<div class="search-name">
+						<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="on" placeholder=" SEARCH  "> 
+						</div>
+						<br>
+						<button class="btn btn-outline-secondary " style=" margin-left: 570px;" routerLink="/formulairediplome" >Ajouter</button>
+					</div>
+					
+				<table class="table user-list">
+					<thead>
+						<tr>
+							<th><span>ID</span></th>
+							<th><span>Name</span></th>
+							<th ><span>Option</span></th>
+							<th><span>DateDiplome</span></th>
+							<th>Modifier</th>
+							<th>Supprimer</th>
+							<th>Details</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  *ngFor="let d of liste |  filter:searchText ; let indexc= index">
+							
+						<td>{{d.idDiplomes}}</td>
+						<td>{{d.nameDiplome}}</td>
+						<td>{{d.opt}}</td>
+						<td>{{d.dateDiplome}}</td>
+						<td><button type="button" class="btn btn-outline-danger mb-2">Modifier</button></td>
+						<td>
+							<button type="button" class="btn btn-outline-danger mb-2" (click)="deleteDiplome(d)">Delete</button>
+							</td>
+							<td><button type="button"  class="btn btn-outline-danger mb-2" (click)="getdiplomeDetail(d)"> Details </button></td>
+						
+						</tr>
+						
+					</tbody>
+				</table>
+				
+			</div>
+			<ul class="pagination pull-right">
+				<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+</div>
+
+
