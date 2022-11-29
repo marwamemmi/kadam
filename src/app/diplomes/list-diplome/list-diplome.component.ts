@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ENOTTY } from 'constants';
 import { Diplome } from '../modules/diplome';
 import { SharedService } from '../services/shared-dep/shared.service';
 
@@ -13,6 +14,9 @@ export class ListDiplomeComponent implements OnInit {
  
   liste : Diplome[]=[];
   diplome : Diplome = new Diplome();
+  p: number = 1;
+  msg: any;
+  mapObject :any ; 
 
  Update={
   idDiplomes:"",
@@ -20,12 +24,19 @@ export class ListDiplomeComponent implements OnInit {
     opt :"",
     dateDiplome :""
  }
+ diplomeByOption={
+  opt :""
+ }
+ date1:Date;
+ date2:Date;
+
   constructor(private myservice:SharedService) { }
   searchText: any;
   ngOnInit(): void {
     this.myservice.getAlldiplomeFromDB().subscribe(data=>
       {this.liste=data, console.log(this.liste)}
       );
+     
   }
 
    deleteDiplome(d: Diplome){
@@ -59,13 +70,14 @@ onsubmit(){
     
 
 }
-getdiplomeDetail(id: number){
+/*getdiplomeDetail($event:any, id: number){
   this.myservice.getDiplomeById(id).subscribe(
     (resp:any)=>{
       this.myservice=resp ;
       console.log(this.myservice);
       console.log("details");
       console.log(resp);
+      console.log($event.target.id)
 
     },
     (erros)=>{
@@ -74,5 +86,39 @@ getdiplomeDetail(id: number){
 
     }
   );
+}*/
+edit(Diplome){
+  this.Update=Diplome;
+  console.log(Diplome);
+  console.log( this.Update);
+}
+updateDiplome (){
+  this.myservice.updateDiplome(this.Update).subscribe(
+    (resp )=>{
+      console.log(resp);
+    },
+    (errors)=>{
+      console.log(errors);
+    }
+  );
+}
+getdiplomebyoption (opt){
+  this.myservice.getdiplomebyoption (opt ).subscribe(
+    data=>
+    {this.liste=data, console.log(this.liste)}
+    );
+
+}
+getdiplomePrisEntreDeuxDatesParOptions (d1,d2){
+  this.myservice.getdiplomePrisEntreDeuxDatesParOptions (d1,d2 ).subscribe((data)=>{this.mapObject=data},
+    (resp )=>{
+      console.log(resp);
+    }
+  );
+  console.log(d1, d2);
+ // for(let [key,value]of this.mapObject){
+ //   this.msg=key +" "+value
+ // }
+
 }
 }
